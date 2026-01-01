@@ -8,6 +8,8 @@ import Register from "../pages/Auth/Register/Register";
 import PrivateRoute from "./PrivateRoute";
 import Rider from "../pages/Rider/Rider";
 import SendParcel from "../pages/SendParcel/SendParcel";
+import DashBoardLayout from "../layouts/DashBoardLayout";
+import MyParcels from "../pages/DashBoard/MyParcels/MyParcels";
 
 export const router = createBrowserRouter([
   {
@@ -45,6 +47,16 @@ export const router = createBrowserRouter([
       {
         path: 'register',
         Component: Register
+      }
+    ]
+  },
+  {
+    path: 'dashboard',
+    element: <PrivateRoute><DashBoardLayout></DashBoardLayout></PrivateRoute>,
+    children: [
+      {
+        path: 'my-parcels',
+        element: <MyParcels></MyParcels>
       }
     ]
   }
