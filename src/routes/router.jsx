@@ -66,11 +66,11 @@ export const router = createBrowserRouter([
         element: <Payment></Payment>
       },
       {
-        path: 'payment-success',
+        path:'payment-success',
         element: <PaymentSuccess></PaymentSuccess>
       },
       {
-        path: 'payment-cancelled',
+        path:'payment-cancelled',
         element: <PaymentCancelled></PaymentCancelled>
       },
     ]

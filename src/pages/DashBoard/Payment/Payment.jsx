@@ -29,9 +29,13 @@ const Payment = () => {
             parcelName:parcel.parcelName
         }
 
+        
+
         const res = await axiosSecure.post('/create-checkout-session', paymentInfo)
         window.location.href = res.data.url
         console.log(res.data)
+
+        window.location.assign(res.data.url);
     }
 
     return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import useAuth from '../../Hooks/UseAuth';
-import { useLoaderData } from 'react-router';
+import { useLoaderData, useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 
@@ -14,6 +14,7 @@ const SendParcel = () => {
     } = useForm()
     const {user} = useAuth()
     const axiosSecure = useAxiosSecure()
+    const navigate = useNavigate()
 
 
     const serviceCenters = useLoaderData()
@@ -73,7 +74,7 @@ const SendParcel = () => {
                     .then(res => {
                         console.log('after saving parcel', res.data);
                         if (res.data.insertedId) {
-                            // navigate('/dashboard/my-parcels')
+                            navigate('/dashboard/my-parcels')
                             Swal.fire({
                                 position: "top-end",
                                 icon: "success",
