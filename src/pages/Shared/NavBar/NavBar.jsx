@@ -1,7 +1,7 @@
 import React from 'react';
 import Logo from '../../../components/Logo/Logo';
 import { Link, NavLink } from 'react-router';
-import useAuth from '../../../Hooks/UseAuth';
+import useAuth from '../../../hooks/UseAuth';
 
 const NavBar = () => {
 
@@ -39,9 +39,9 @@ const NavBar = () => {
                         {links}
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">
+                <span className="btn btn-ghost text-xl">
                     <Logo></Logo>
-                </a>
+                </span>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
