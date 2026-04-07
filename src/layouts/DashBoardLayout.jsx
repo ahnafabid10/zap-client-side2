@@ -1,6 +1,6 @@
 import React from 'react';
 import { CiDeliveryTruck } from 'react-icons/ci';
-import { FaCreditCard } from 'react-icons/fa';
+import { FaCreditCard, FaUsers } from 'react-icons/fa';
 import { RiMotorbikeFill } from 'react-icons/ri';
 import { Link, NavLink, Outlet } from 'react-router';
 
@@ -60,6 +60,14 @@ const DashBoardLayout = () => {
           ><RiMotorbikeFill />
             <span className="is-drawer-close:hidden">
               Approve Riders</span></NavLink>
+        </li>
+         <li>
+          <NavLink 
+          to={'/dashboard/users-management'}
+          className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Users Management"
+          ><FaUsers/>
+            <span className="is-drawer-close:hidden">
+              Users Management</span></NavLink>
         </li>
 
         {/* List item */}
