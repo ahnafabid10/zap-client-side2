@@ -3,8 +3,10 @@ import { CiDeliveryTruck } from 'react-icons/ci';
 import { FaCreditCard, FaUsers } from 'react-icons/fa';
 import { RiMotorbikeFill } from 'react-icons/ri';
 import { Link, NavLink, Outlet } from 'react-router';
+import useRole from '../hooks/useRole';
 
 const DashBoardLayout = () => {
+  const {role} = useRole()
     return (
         <div>
             <div className="drawer lg:drawer-open">
@@ -53,7 +55,10 @@ const DashBoardLayout = () => {
             <span className="is-drawer-close:hidden">
               Payment History</span></NavLink>
         </li>
-         <li>
+        //Role Admin
+        {
+          role === 'admin' && <>
+          <li>
           <NavLink 
           to={'/dashboard/approve-riders'}
           className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Approve Riders"
@@ -69,6 +74,9 @@ const DashBoardLayout = () => {
             <span className="is-drawer-close:hidden">
               Users Management</span></NavLink>
         </li>
+          </>
+        }
+         
 
         {/* List item */}
         <li>
