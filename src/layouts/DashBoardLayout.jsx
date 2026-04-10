@@ -55,7 +55,7 @@ const DashBoardLayout = () => {
             <span className="is-drawer-close:hidden">
               Payment History</span></NavLink>
         </li>
-        //Role Admin
+        
         {
           role === 'admin' && <>
           <li>
