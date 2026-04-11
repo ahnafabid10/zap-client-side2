@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useRef, useState } from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import Swal from 'sweetalert2';
 
 const AssignRiders = () => {
     const [selectedParcel, setSelectedParcel] = useState(null)
@@ -14,7 +15,7 @@ const AssignRiders = () => {
         }
     })
 
-    const {data: riders = []} = useQuery({
+    const {data: riders = [], refetch: parcelsRefetch} = useQuery({
         queryKey: ['riders', selectedParcel?.senderDistrict, 'available'],
         enabled: !!selectedParcel,
         queryFn: async()=>{
@@ -35,7 +36,20 @@ const handleAssignRider = rider =>{
         riderName: rider.name,
         parcelId: selectedParcel._id
     }
-    axiosSecure.patch(``, riderAssignInfo)
+    axiosSecure.patch(`/parcels/${selectedParcel._id}`, riderAssignInfo)
+    .then(res=> {
+        if(res.data.modifiedCount){
+            parcelsRefetch()
+            riderModalRaf.current.close()
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: `Rider has been assigned` ,
+                showConfirmButton: false,
+                timer: 1500
+                });
+        }
+    })
 }
 
     return (
@@ -63,7 +77,7 @@ const handleAssignRider = rider =>{
         <td>{parcel.createdAt}</td>
         <td>{parcel.senderDistrict}</td>
         <td>
-            <button onClick={()=>openAssignRiderModal(parcel)} className='btn btn-primary text-black'>Assign Rider</button>
+            <button onClick={()=>openAssignRiderModal(parcel)} className='btn btn-primary text-black'>Find Riders</button>
         </td>
       </tr>
       )}
