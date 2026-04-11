@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import useAuth from '../../../Hooks/UseAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { CiEdit } from 'react-icons/ci';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import { Link } from 'react-router';
+import useAuth from '../../../hooks/UseAuth';
 
 const MyParcels = () => {
     const {user} = useAuth()
@@ -66,6 +66,7 @@ Swal.fire({
         <th>Name</th>
         <th>Cost</th>
         <th>Payment</th>
+        <th>TrackingID</th>
         <th>Delivery Status</th>
         <th>Action</th>
       </tr>
@@ -86,6 +87,7 @@ Swal.fire({
                 </Link>
             }
         </td>
+        <td>{parcel.trackingId}</td>
         <td>{parcel.deliveryStatus}</td>
         <td>
             <button className='btn btn-square hover:bg-primary'>
