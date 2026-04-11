@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { FaTrash, FaUserCheck } from 'react-icons/fa';
 import { IoPersonRemoveSharp } from 'react-icons/io5';
@@ -7,6 +6,7 @@ import Swal from 'sweetalert2';
 
 const ApproveRiders = () => {
     const axiosSecure = useAxiosSecure()
+    
     const {data: riders = [], refetch} =useQuery({
         queryKey: ["riders", "pending"],
         queryFn: async()=>{
@@ -40,6 +40,7 @@ const handleRejection = (rider) => {
     updateRiderStatus("rejected", rider)
 }
 
+
     return (
         <div>
             <div className="text-5xl">Riders Pending Approval: {riders.length}</div>
@@ -51,8 +52,9 @@ const handleRejection = (rider) => {
         <th></th>
         <th>Name</th>
         <th>Email</th>
-        <th>Status</th>
         <th>District</th>
+        <th>Application Status</th>
+        <th>Work Status</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -66,6 +68,8 @@ const handleRejection = (rider) => {
         <td>
             <p className={`${rider.status === 'approved' ? "text-green-800" : "text-red-300"}` }>{rider.status}</p>
         </td>
+        <td>{rider.workStatus}</td>
+        
        
         <td>
         <button onClick={()=>handleApproval(rider)} className='btn'>

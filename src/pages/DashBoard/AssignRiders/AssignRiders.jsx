@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useRef } from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 const AssignRiders = () => {
 
     const axiosSecure = useAxiosSecure()
-
+    const riderModalRaf = useRef()
     const {data: parcels = []} = useQuery({
         queryKey: ['parcels', 'pending-pickup'],
         queryFn: async ()=>{
@@ -13,6 +13,10 @@ const AssignRiders = () => {
             return res.data
         }
     })
+
+    const openAssignRiderModal = (parcel) =>{
+    riderModalRaf.current.showModal()
+}
 
     return (
         <div>
@@ -22,23 +26,43 @@ const AssignRiders = () => {
     {/* head */}
     <thead>
       <tr>
-        <th></th>
+        <th>#</th>
         <th>Name</th>
-        <th>Job</th>
-        <th>Favorite Color</th>
+        <th>Cost</th>
+        <th>Created At</th>
+        <th>Pickup District</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      {/* row 1 */}
-      <tr>
-        <th>1</th>
-        <td>Cy Ganderton</td>
-        <td>Quality Control Specialist</td>
-        <td>Blue</td>
+      {
+        parcels.map((parcel, index)=><tr key={parcel._id}>
+        <th>{index + 1}</th>
+        <td>{parcel.parcelName}</td>
+        <td>{parcel.cost}</td>
+        <td>{parcel.createdAt}</td>
+        <td>{parcel.senderDistrict}</td>
+        <td>
+            <button onClick={()=>openAssignRiderModal(parcel)} className='btn btn-primary text-black'>Assign Rider</button>
+        </td>
       </tr>
+      )}
+      
     </tbody>
   </table>
 </div>
+<dialog ref={riderModalRaf} className="modal modal-bottom sm:modal-middle">
+  <div className="modal-box">
+    <h3 className="font-bold text-lg">Hello!</h3>
+    <p className="py-4">Press ESC key or click the button below to close</p>
+    <div className="modal-action">
+      <form method="dialog">
+        {/* if there is a button in form, it will close the modal */}
+        <button className="btn">Close</button>
+      </form>
+    </div>
+  </div>
+</dialog>
         </div>
     );
 };
